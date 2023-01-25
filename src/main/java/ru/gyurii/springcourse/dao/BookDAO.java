@@ -2,7 +2,6 @@ package ru.gyurii.springcourse.dao;
 
 import org.springframework.stereotype.Component;
 import ru.gyurii.springcourse.models.Book;
-import ru.gyurii.springcourse.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +28,18 @@ public class BookDAO {
                 .filter(books-> books.getId() == id)
                 .findAny()
                 .orElse(null);
+    }
+
+    public void save(Book book) {
+        book.setId(++BOOK_COUNT);
+        books.add(book);
+    }
+
+    public void update(int id, Book updateBook){
+        Book bookToBeUpdate = show(id);
+
+        bookToBeUpdate.setTitle(updateBook.getTitle());
+        bookToBeUpdate.setAuthor(updateBook.getAuthor());
+        bookToBeUpdate.setPublicationYear(updateBook.getPublicationYear());
     }
 }

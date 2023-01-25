@@ -5,6 +5,7 @@
     <title>Book</title>
 </head>
 <body>
-    <p th:text="${book.getTitle()} + ' ' + ${book.getAuthor()} + ' ' + ${book.getManufacturingYear()}">User</p>
+    <p th:text="${book.getTitle()} + ' ' + ${book.getAuthor()} + ' ' + ${book.getPublicationYear()}">User</p>
+    <a th:href="@{/books/{id}/edit (id=${book.getId()})}">Update book</a>
 </body>
 </html>

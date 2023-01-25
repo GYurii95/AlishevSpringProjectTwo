@@ -1,15 +1,25 @@
 package ru.gyurii.springcourse.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Person {
 
     private int id;
     private String name;
-    private int year;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
 
-    public Person(int id, String name, int year) {
+    public Person(int id, String name,Date date) {
         this.id = id;
         this.name = name;
-        this.year = year;
+        this.birthday = date;
+    }
+
+    public Person(){
+
     }
 
     public int getId() {
@@ -28,11 +38,18 @@ public class Person {
         this.name = name;
     }
 
-    public int getYear() {
-        return year;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+        String birth = format.format(birthday);
+        return name + ", " + birth;
     }
 }

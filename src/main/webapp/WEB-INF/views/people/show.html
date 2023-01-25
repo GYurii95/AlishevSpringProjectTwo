@@ -5,6 +5,7 @@
     <title>Person</title>
 </head>
 <body>
-    <p th:text="${person.getName()} + ' ' + ${person.getYear()}">User</p>
+    <p th:text="${person.toString()}">User</p>
+    <a th:href="@{/people/{id}/edit (id=${person.getId()})}"> Update person</a>
 </body>
 </html>
