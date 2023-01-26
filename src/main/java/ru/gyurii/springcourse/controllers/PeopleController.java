@@ -3,11 +3,12 @@ package ru.gyurii.springcourse.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.gyurii.springcourse.dao.PersonDAO;
 import ru.gyurii.springcourse.models.Person;
 
-import java.util.Date;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
@@ -39,9 +40,11 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(/*@RequestParam("name") String name, @RequestParam("birthday") Date data*/
-                        @ModelAttribute("person") Person person){
-        //Person person = new Person(0, name, data);
+    public String create(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return "people/new";
+
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -53,7 +56,11 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable int id, @ModelAttribute("personToUpdate") Person personToUpdate) {
+    public String update(@ModelAttribute("personUpdate")  @Valid Person personToUpdate,
+                         BindingResult bindingResult, @PathVariable int id) {
+        if(bindingResult.hasErrors())
+            return "people/edit";
+
         personDAO.update(id, personToUpdate);
         return "redirect:/people";
     }

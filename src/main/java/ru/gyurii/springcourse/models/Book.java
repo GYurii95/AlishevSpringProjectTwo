@@ -1,10 +1,18 @@
 package ru.gyurii.springcourse.models;
 
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 public class Book {
 
     private int id;
+    @NotEmpty(message = "Title should not be empty")
     private String title;
+    @NotEmpty(message = "Author should not be empty")
     private String author;
+
+    @Min(value = 0, message = "Publication year should not be empty")
     private int publicationYear;
 
     public Book(int id, String title, String author, int publicationYear) {

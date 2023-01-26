@@ -1,13 +1,18 @@
 package ru.gyurii.springcourse.models;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person {
 
     private int id;
+    @NotEmpty(message = "Name should not be empty")
+    @Pattern(regexp = "^[А-Я][а-я]+ [А-Я][а-я]+ [А-Я][а-я]+$")
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
