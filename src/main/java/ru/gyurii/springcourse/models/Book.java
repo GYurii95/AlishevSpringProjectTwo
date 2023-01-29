@@ -7,19 +7,22 @@ import javax.validation.constraints.NotEmpty;
 public class Book {
 
     private int id;
-    @NotEmpty(message = "Title should not be empty")
+    @NotEmpty(message = "Заголовок книги не должен быть пустым")
     private String title;
-    @NotEmpty(message = "Author should not be empty")
+    @NotEmpty(message = "Введине ФИО автора")
     private String author;
 
-    @Min(value = 0, message = "Publication year should not be empty")
+    @Min(value = 0, message = "Введите год издания")
     private int publicationYear;
 
-    public Book(int id, String title, String author, int publicationYear) {
+    private int people_id;
+
+    public Book(int id, String title, String author, int publicationYear, int people_id) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
+        this.people_id = people_id;
     }
 
     public Book() {
@@ -55,5 +58,13 @@ public class Book {
 
     public void setPublicationYear(int publicationYear) {
         this.publicationYear = publicationYear;
+    }
+
+    public int getPeople_id() {
+        return people_id;
+    }
+
+    public void setPeople_id(int people_id) {
+        this.people_id = people_id;
     }
 }

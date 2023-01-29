@@ -7,16 +7,16 @@
 <body>
 <form th:method="PATCH" th:action="@{/people/{id} (id=${personUpdate.getId()})}" th:object="${personUpdate}">
     <div>
-        <label for="name">Person name</label>
+        <label for="name">ФИО человека</label>
         <input type="text" th:field="*{name}" id="name"/>
         <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Person name error</div>
         <br/>
-        <label for="birth">Person birthday</label>
+        <label for="birth">Дата рождения</label>
         <input type="date" th:field="*{birthday}" id="birth"/>
         <br/>
     </div>
     <div>
-        <input type="submit" value="Update person">
+        <input type="submit" value="Обновить данные человека">
     </div>
 </form>
 </body>

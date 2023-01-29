@@ -5,7 +5,17 @@
     <title>Book</title>
 </head>
 <body>
-    <p th:text="${book.getTitle()} + ' ' + ${book.getAuthor()} + ' ' + ${book.getPublicationYear()}">User</p>
-    <a th:href="@{/books/{id}/edit (id=${book.getId()})}">Update book</a>
+    <p th:text="${book.getTitle()} + ' ' + ${book.getAuthor()} + ' ' + ${book.getPublicationYear()}">Book</p>
+    <br/>
+    <a th:if="${book.getPeople_id() == 0}">Эта книга свободна. Кому ее назначить?</a>
+    <a th:unless="${book.getPeople_id() == 0}" th:text="${'Эта книга занята: ' + people.get(book.getPeople_id()).getName()}">Эта книга занята.</a>
+    <br/>
+
+    <a th:href="@{/books/{id}/edit (id=${book.getId()})}">Редактировать книгу</a>
+    <br/>
+    <hr/>
+    <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+        <input type="submit" value="Удалить книгу">
+    </form>
 </body>
 </html>

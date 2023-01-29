@@ -6,6 +6,11 @@
 </head>
 <body>
     <p th:text="${person.toString()}">User</p>
-    <a th:href="@{/people/{id}/edit (id=${person.getId()})}"> Update person</a>
+    <a th:href="@{/people/{id}/edit (id=${person.getId()})}">Обновить данные человека</a>
+    <br/>
+    <hr/>
+    <form th:method="DELETE" th:action="@{/people/{id} (id=${person.getId()})}">
+        <input type="submit" value="Удалить человека"/>
+    </form>
 </body>
 </html>

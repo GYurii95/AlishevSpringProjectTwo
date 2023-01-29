@@ -11,8 +11,8 @@ import java.util.Date;
 public class Person {
 
     private int id;
-    @NotEmpty(message = "Name should not be empty")
-    @Pattern(regexp = "^[А-Я][а-я]+ [А-Я][а-я]+ [А-Я][а-я]+$")
+    @NotEmpty(message = "ФИО не должно быть пустым")
+    @Pattern(regexp = "^[А-Я][а-я]+ [А-Я][а-я]+ [А-Я][а-я]+$", message = "Пример ввода: Иванов Иван Иванович")
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
