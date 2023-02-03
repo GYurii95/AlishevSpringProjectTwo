@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.gyurii.springcourse.dao.BookDAO;
 import ru.gyurii.springcourse.dao.PersonDAO;
 import ru.gyurii.springcourse.models.Book;
+import ru.gyurii.springcourse.models.Person;
 
 import javax.validation.Valid;
 
@@ -31,7 +32,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.show(id));
         model.addAttribute("people", personDAO.index());
         return "books/show";
@@ -61,10 +62,18 @@ public class BooksController {
     @PatchMapping("/{id}")
     public String update(@PathVariable int id, @ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            System.out.println("error bd");
             return "books/edit";
-
+        }
         bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @PatchMapping("/{id}/add")
+    public String update(@PathVariable int id, @ModelAttribute("person") Person person) {
+        System.out.println(id);
+        bookDAO.setPerson(id, person.getId() - 1);
         return "redirect:/books";
     }
 

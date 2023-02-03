@@ -7,6 +7,9 @@
 <body>
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.toString()}">Information about person</a>
+    <div th:if="${}">
+        <p th:e>Название книги</p>
+    </div>
 </div>
     <br/>
     <hr/>

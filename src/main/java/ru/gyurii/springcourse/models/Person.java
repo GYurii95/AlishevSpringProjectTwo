@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Person {
 
@@ -16,11 +17,13 @@ public class Person {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+    private List<Book> books;
 
-    public Person(int id, String name,Date date) {
+    public Person(int id, String name, Date date, List<Book> books) {
         this.id = id;
         this.name = name;
         this.birthday = date;
+        this.books = books;
     }
 
     public Person(){
@@ -49,6 +52,14 @@ public class Person {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
