@@ -3,26 +3,26 @@ package ru.gyurii.springcourse.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class Book {
 
     private int id;
     @NotEmpty(message = "Заголовок книги не должен быть пустым")
+    @Size(min = 2, max = 30, message = "Заголовок должен содержать от 2 до 30 символов")
     private String title;
     @NotEmpty(message = "Введине ФИО автора")
+    @Size(min = 2, max = 50, message = "Имя автора должно содержать от 2 до 50 символов")
     private String author;
 
-    @Min(value = 0, message = "Введите год издания")
-    private int publicationYear;
+    @Min(value = 1500, message = "Введите год издания, не менее 1500 г.")
+    private int publicYear;
 
-    private int people_id;
-
-    public Book(int id, String title, String author, int publicationYear, int people_id) {
+    public Book(int id, String title, String author, int publicYear) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publicationYear = publicationYear;
-        this.people_id = people_id;
+        this.publicYear = publicYear;
     }
 
     public Book() {
@@ -52,19 +52,16 @@ public class Book {
         this.author = author;
     }
 
-    public int getPublicationYear() {
-        return publicationYear;
+    public int getPublicYear() {
+        return publicYear;
     }
 
-    public void setPublicationYear(int publicationYear) {
-        this.publicationYear = publicationYear;
+    public void setPublicYear(int publicYear) {
+        this.publicYear = publicYear;
     }
 
-    public int getPeople_id() {
-        return people_id;
-    }
-
-    public void setPeople_id(int people_id) {
-        this.people_id = people_id;
+    @Override
+    public String toString() {
+        return title + ", " + author + ", " + publicYear + " года издания.";
     }
 }

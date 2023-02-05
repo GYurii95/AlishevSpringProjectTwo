@@ -14,6 +14,7 @@
         <br/>
         <label for="birth">Дата рождения</label>
         <input type="date" th:field="*{birthday}" id="birth"/>
+        <div style="color: red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Ошибка в дате рождения</div>
         <br/>
     </div>
     <div>

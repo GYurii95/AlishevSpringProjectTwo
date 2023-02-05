@@ -3,27 +3,25 @@ package ru.gyurii.springcourse.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Person {
-
     private int id;
     @NotEmpty(message = "ФИО не должно быть пустым")
-    @Pattern(regexp = "^[А-Я][а-я]+ [А-Я][а-я]+ [А-Я][а-я]+$", message = "Пример ввода: Иванов Иван Иванович")
+    @Pattern(regexp = "^[А-Я][а-я]{2,25} [А-Я][а-я]{2,15} [А-Я][а-я]{2,20}$", message = "Пример ввода: Иванов Иван Иванович")
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Введите дату рождения")
+    @Past(message = "Некорректная дата рождения")
+    //@Min(value = MIN_DATE, message = "Дата рождения не должна быть ранее 01/01/1970")
     private Date birthday;
-    private List<Book> books;
 
-    public Person(int id, String name, Date date, List<Book> books) {
+    public Person(int id, String name, Date date) {
         this.id = id;
         this.name = name;
         this.birthday = date;
-        this.books = books;
     }
 
     public Person(){
@@ -54,18 +52,10 @@ public class Person {
         this.birthday = birthday;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     @Override
     public String toString() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat format = new SimpleDateFormat("YYYY");
         String birth = format.format(birthday);
-        return name + ", " + birth;
+        return name + ", " + birth + " гр.";
     }
 }

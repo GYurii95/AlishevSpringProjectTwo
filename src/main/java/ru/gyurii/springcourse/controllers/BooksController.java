@@ -11,6 +11,7 @@ import ru.gyurii.springcourse.models.Book;
 import ru.gyurii.springcourse.models.Person;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -34,7 +35,15 @@ public class BooksController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.show(id));
-        model.addAttribute("people", personDAO.index());
+
+        Optional<Person> bookOwner = bookDAO.getBookOwner(id);
+
+        if(bookOwner.isPresent()) {
+            model.addAttribute("owner", bookOwner.get());
+        } else {
+            model.addAttribute("people", personDAO.index());
+        }
+
         return "books/show";
     }
 
@@ -63,18 +72,22 @@ public class BooksController {
     public String update(@PathVariable int id, @ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println("error bd");
             return "books/edit";
         }
         bookDAO.update(id, book);
         return "redirect:/books";
     }
 
-    @PatchMapping("/{id}/add")
-    public String update(@PathVariable int id, @ModelAttribute("person") Person person) {
-        System.out.println(id);
-        bookDAO.setPerson(id, person.getId() - 1);
-        return "redirect:/books";
+    @PatchMapping("/{id}/addPerson")
+    public String addPerson(@PathVariable int id, @ModelAttribute("person") Person person) {
+        bookDAO.setPerson(id, person.getId());
+        return "redirect:/books/" + id;
+    }
+
+    @PatchMapping("/{id}/freeBook")
+    public String freeBook(@PathVariable int id) {
+        bookDAO.freeBook(id);
+        return "redirect:/books/" + id;
     }
 
     @DeleteMapping("/{id}")

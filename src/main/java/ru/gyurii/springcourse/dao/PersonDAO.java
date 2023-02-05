@@ -3,9 +3,11 @@ package ru.gyurii.springcourse.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.gyurii.springcourse.models.Book;
 import ru.gyurii.springcourse.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
@@ -44,5 +46,15 @@ public class PersonDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM People WHERE people_id=?", id);
+    }
+
+    public List<Book> getPersonBook(int id){
+        return jdbcTemplate.query("SELECT book_id, title, author, public_year FROM Books WHERE people_id=?",
+                new Object[]{id}, new BookMapper());
+    }
+
+    public Optional<Person> getPersonName(String nameAddDB) {
+        return jdbcTemplate.query("SELECT * FROM People WHERE name=?",
+                new Object[]{nameAddDB}, new PersonMapper()).stream().findAny();
     }
 }

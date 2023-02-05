@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.gyurii.springcourse.dao.BookDAO;
 import ru.gyurii.springcourse.dao.PersonDAO;
 import ru.gyurii.springcourse.models.Person;
+import ru.gyurii.springcourse.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -16,12 +16,12 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private PersonDAO personDAO;
-    private BookDAO bookDAO;
+    private PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, BookDAO bookDAO) {
+    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
-        this.bookDAO = bookDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping
@@ -33,7 +33,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.show(id));
-        model.addAttribute("books", bookDAO.index());
+        model.addAttribute("books", personDAO.getPersonBook(id));
         return "people/show";
     }
 
@@ -46,6 +46,9 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult){
+
+        personValidator.validate(person, bindingResult);
+
         if(bindingResult.hasErrors())
             return "people/new";
 
