@@ -2,10 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book</title>
+    <title>Информация</title>
 </head>
 <body>
     <p th:text="${book.toString()}">Книга</p>
+
+
     <div th:if="${owner}">
         <b>Книга взята:</b>
         <p th:text="${owner.toString()}">Человек</p>
@@ -24,11 +26,14 @@
             <input type="submit" value="Назначить книгу"/>
         </form>
     </div>
-    <br/>
+
+
     <hr/>
-    <form th:action="@{/books/{id}/edit (id=${book.getId()})}">
+    <form th:action="@{/books/{id}/edit(id=${book.getId()})}">
         <input type="submit" value="Редактировать книгу">
     </form>
+    <br/>
+
     <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
         <input type="submit" value="Удалить книгу">
     </form>

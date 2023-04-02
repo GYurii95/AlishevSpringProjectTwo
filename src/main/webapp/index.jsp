@@ -1,10 +1,11 @@
 <head>
-    <title>Start Page</title>
+    <meta charset="UTF-8">
+    <title>Начальная страница</title>
 </head>
 <body>
     <div>
         <p>Alishev Spring Course</p>
-        <p>Home project/ Part 1</p>
+        <p>Spring project/ Part 2</p>
         </br>
         <a href = "people">List people</a>
         </br>

@@ -1,5 +1,5 @@
 package ru.gyurii.springcourse.dao;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -64,4 +64,4 @@ public class BookDAO {
                         " where book_id=?", new Object[]{id}, new PersonMapper()).stream().findAny();
     }
 
-}
+}*/

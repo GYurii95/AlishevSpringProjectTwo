@@ -10,6 +10,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.EnumSet;
 
+/*
+    Конфигурация web.wml для TomCat (DispatcherSerlvetIntitializer)
+*/
+
 public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {

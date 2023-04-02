@@ -2,23 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Person</title>
+    <title>Информация</title>
 </head>
 <body>
     <p th:text="${person.toString()}">Человек</p>
-    <div th:if="${books.isEmpty()}">
+
+
+    <div th:if="${booksByPerson.isEmpty()}">
         <p>Человек не взял ни одной книги.</p>
     </div>
-    <div th:if="${!books.isEmpty()}">
+    <div th:if="${!booksByPerson.isEmpty()}">
         <b>За человеком числится:</b>
-        <p th:each="book:${books}" th:text="${book.toString()}">Книга</p>
+        <p th:each="book:${booksByPerson}" th:text="${book.toString()}" th:style="${book.isOverdue()} ? 'color: red':'color: black'">Книга</p>
     </div>
+
     <hr/>
-    <form th:action="@{/people/{id}/edit (id=${person.getId()})}">
-        <input type="submit" value="Редактировать">
+
+    <form th:action="@{/people/{id}/edit(id=${person.getId()})}">
+        <input type="submit" value="Редактировать данные человека">
     </form>
     <br/>
-    <form th:method="DELETE" th:action="@{/people/{id} (id=${person.getId()})}">
+
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
         <input type="submit" value="Удалить человека"/>
     </form>
 </body>
